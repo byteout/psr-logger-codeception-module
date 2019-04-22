@@ -1,0 +1,29 @@
+{
+    "name": "byteout/psr-logger-codeception-module",
+    "type": "library",
+    "description": "Codeception module for PSR3 Logger Interface.",
+    "keywords": ["codeception", "module", "psr-3", "psr", "log", "test"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Lukić",
+            "email": "igor@byteout.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.6.0 <8.0",
+        "codeception/codeception": "^2.0",
+        "psr/log": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Byteout\\Codeception\\Module\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}

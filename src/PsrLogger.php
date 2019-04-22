@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Module;
+namespace Byteout\Codeception\Module;
 
 use Codeception\Module;
 use Codeception\TestInterface;
@@ -13,7 +13,7 @@ class PsrLogger extends Module
 
     public function _before(TestInterface $test)
     {
-        $this->logger = null;
+        $this->logger = new TestLogger();
     }
 
     /**
@@ -21,7 +21,7 @@ class PsrLogger extends Module
      */
     public function grabLogger()
     {
-        return $this->logger = new TestLogger();
+        return $this->logger;
     }
 
     public function seeLoggerHasEmergency($record)

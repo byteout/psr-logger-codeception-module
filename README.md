@@ -1,6 +1,6 @@
 # Codeception PSR3 Logger Module
 
-[![Build Status](https://img.shields.io/travis/byteout/psr-logger-codeception-module/master.svg)](https://travis-ci.org/byteout/psr-logger-codeception-module)
+[![Build Status](https://img.shields.io/travis/byteout/psr-logger-codeception-module/master.svg)](https://travis-ci.com/byteout/psr-logger-codeception-module)
 [![Packagist Version](https://img.shields.io/packagist/v/byteout/psr-logger-codeception-module.svg)](https://packagist.org/packages/byteout/psr-logger-codeception-module)
 [![License](https://img.shields.io/github/license/byteout/psr-logger-codeception-module.svg)](LICENSE)
 

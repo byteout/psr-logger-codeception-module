@@ -11,6 +11,10 @@ cache:
         - vendor
         - $HOME/.composer/cache
 
+branches:
+    only:
+        - master
+
 env:
     matrix:
         - PREFER_LOWEST="--prefer-lowest"

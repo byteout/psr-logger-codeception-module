@@ -4,8 +4,8 @@
 [![Packagist Version](https://img.shields.io/packagist/v/byteout/psr-logger-codeception-module.svg)](https://packagist.org/packages/byteout/psr-logger-codeception-module)
 [![License](https://img.shields.io/github/license/byteout/psr-logger-codeception-module.svg)](LICENSE)
 
-This library provides [Codeception](https://github.com/Codeception/Codeception) module for testing [PSR3](https://www.php-fig.org/psr/psr-3/) compatible
-loggers.
+[Codeception](https://github.com/Codeception/Codeception) module for validation of messages logged by
+[PSR3](https://www.php-fig.org/psr/psr-3/) loggers.
 
 Developed by [Byteout Software](https://www.byteout.com/).
 

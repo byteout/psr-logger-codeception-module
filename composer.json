@@ -1,7 +1,7 @@
 {
     "name": "byteout/psr-logger-codeception-module",
     "type": "library",
-    "description": "Codeception module for PSR3 Logger Interface.",
+    "description": "Codeception module for validation of messages logged by PSR3 loggers.",
     "keywords": ["codeception", "module", "psr-3", "psr", "log", "test"],
     "license": "MIT",
     "authors": [

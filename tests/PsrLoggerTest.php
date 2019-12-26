@@ -4,287 +4,306 @@ namespace Tests\Byteout\Codeception\Module;
 
 use Byteout\Codeception\Module\PsrLogger;
 use Codeception\Lib\ModuleContainer;
-use Codeception\PHPUnit\TestCase;
 use Codeception\TestInterface;
+use PHPUnit\Framework\TestCase;
 
 class PsrLoggerTest extends TestCase
 {
-    /** @var PsrLogger */
-    private $module;
-
-    protected function _setUp()
+    /**
+     * @return PsrLogger
+     */
+    private function createModule()
     {
         $container = $this->createMock(ModuleContainer::class);
-        $this->module = new PsrLogger($container);
-        $this->module->_before($this->createMock(TestInterface::class));
+        $module = new PsrLogger($container);
+        $module->_before($this->createMock(TestInterface::class));
+
+        return $module;
     }
 
     public function testModuleName()
     {
-        $name = $this->module->_getName();
+        $module = $this->createModule();
+        $name = $module->_getName();
         $this->assertEquals('\\Byteout\\Codeception\\Module\\PsrLogger', $name);
     }
 
     public function testEmergency()
     {
-        $this->module->dontSeeLoggerHasAnyEmergency();
+        $module = $this->createModule();
 
-        $this->module->haveEmergency('Test message 1', ['test' => 'Test context']);
+        $module->dontSeeLoggerHasAnyEmergency();
 
-        $this->module->seeLoggerHasAnyEmergency();
+        $module->haveEmergency('Test message 1', ['test' => 'Test context']);
 
-        $this->module->seeLoggerHasEmergency('Test message 1');
-        $this->module->seeLoggerHasEmergency('Test message 1', ['test' => 'Test context']);
+        $module->seeLoggerHasAnyEmergency();
 
-        $this->module->dontSeeLoggerHasEmergency('Wrong message');
-        $this->module->dontSeeLoggerHasEmergency('Test message 1', ['test' => 'wrong context']);
+        $module->seeLoggerHasEmergency('Test message 1');
+        $module->seeLoggerHasEmergency('Test message 1', ['test' => 'Test context']);
 
-        $this->module->haveEmergency('Test message 2');
+        $module->dontSeeLoggerHasEmergency('Wrong message');
+        $module->dontSeeLoggerHasEmergency('Test message 1', ['test' => 'wrong context']);
 
-        $this->module->seeLoggerHasEmergency('Test message 1');
-        $this->module->seeLoggerHasEmergency('Test message 2');
+        $module->haveEmergency('Test message 2');
 
-        $this->module->seeLoggerHasEmergencyThatContains('message');
-        $this->module->dontSeeLoggerHasEmergencyThatContains('wrong');
+        $module->seeLoggerHasEmergency('Test message 1');
+        $module->seeLoggerHasEmergency('Test message 2');
 
-        $this->module->seeLoggerHasEmergencyThatMatchesRegex('/message/');
-        $this->module->dontSeeLoggerHasEmergencyThatMatchesRegex('/wrong/');
+        $module->seeLoggerHasEmergencyThatContains('message');
+        $module->dontSeeLoggerHasEmergencyThatContains('wrong');
 
-        $this->module->seeLoggerHasEmergencyThatPasses(function ($record) {
+        $module->seeLoggerHasEmergencyThatMatchesRegex('/message/');
+        $module->dontSeeLoggerHasEmergencyThatMatchesRegex('/wrong/');
+
+        $module->seeLoggerHasEmergencyThatPasses(static function ($record) {
             return isset($record['context']['test']);
         });
-        $this->module->dontSeeLoggerHasEmergencyThatPasses(function ($record) {
+        $module->dontSeeLoggerHasEmergencyThatPasses(static function ($record) {
             return isset($record['context']['wrong']);
         });
     }
 
     public function testAlert()
     {
-        $this->module->dontSeeLoggerHasAnyAlert();
+        $module = $this->createModule();
 
-        $this->module->haveAlert('Test message 1', ['test' => 'Test context']);
+        $module->dontSeeLoggerHasAnyAlert();
 
-        $this->module->seeLoggerHasAnyAlert();
+        $module->haveAlert('Test message 1', ['test' => 'Test context']);
 
-        $this->module->seeLoggerHasAlert('Test message 1');
-        $this->module->seeLoggerHasAlert('Test message 1', ['test' => 'Test context']);
+        $module->seeLoggerHasAnyAlert();
 
-        $this->module->dontSeeLoggerHasAlert('Wrong message');
-        $this->module->dontSeeLoggerHasAlert('Test message 1', ['test' => 'wrong context']);
+        $module->seeLoggerHasAlert('Test message 1');
+        $module->seeLoggerHasAlert('Test message 1', ['test' => 'Test context']);
 
-        $this->module->haveAlert('Test message 2');
+        $module->dontSeeLoggerHasAlert('Wrong message');
+        $module->dontSeeLoggerHasAlert('Test message 1', ['test' => 'wrong context']);
 
-        $this->module->seeLoggerHasAlert('Test message 1');
-        $this->module->seeLoggerHasAlert('Test message 2');
+        $module->haveAlert('Test message 2');
 
-        $this->module->seeLoggerHasAlertThatContains('message');
-        $this->module->dontSeeLoggerHasAlertThatContains('wrong');
+        $module->seeLoggerHasAlert('Test message 1');
+        $module->seeLoggerHasAlert('Test message 2');
 
-        $this->module->seeLoggerHasAlertThatMatchesRegex('/message/');
-        $this->module->dontSeeLoggerHasAlertThatMatchesRegex('/wrong/');
+        $module->seeLoggerHasAlertThatContains('message');
+        $module->dontSeeLoggerHasAlertThatContains('wrong');
 
-        $this->module->seeLoggerHasAlertThatPasses(function ($record) {
+        $module->seeLoggerHasAlertThatMatchesRegex('/message/');
+        $module->dontSeeLoggerHasAlertThatMatchesRegex('/wrong/');
+
+        $module->seeLoggerHasAlertThatPasses(static function ($record) {
             return isset($record['context']['test']);
         });
-        $this->module->dontSeeLoggerHasAlertThatPasses(function ($record) {
+        $module->dontSeeLoggerHasAlertThatPasses(static function ($record) {
             return isset($record['context']['wrong']);
         });
     }
 
     public function testCritical()
     {
-        $this->module->dontSeeLoggerHasAnyCritical();
+        $module = $this->createModule();
 
-        $this->module->haveCritical('Test message 1', ['test' => 'Test context']);
+        $module->dontSeeLoggerHasAnyCritical();
 
-        $this->module->seeLoggerHasAnyCritical();
+        $module->haveCritical('Test message 1', ['test' => 'Test context']);
 
-        $this->module->seeLoggerHasCritical('Test message 1');
-        $this->module->seeLoggerHasCritical('Test message 1', ['test' => 'Test context']);
+        $module->seeLoggerHasAnyCritical();
 
-        $this->module->dontSeeLoggerHasCritical('Wrong message');
-        $this->module->dontSeeLoggerHasCritical('Test message 1', ['test' => 'wrong context']);
+        $module->seeLoggerHasCritical('Test message 1');
+        $module->seeLoggerHasCritical('Test message 1', ['test' => 'Test context']);
 
-        $this->module->haveCritical('Test message 2');
+        $module->dontSeeLoggerHasCritical('Wrong message');
+        $module->dontSeeLoggerHasCritical('Test message 1', ['test' => 'wrong context']);
 
-        $this->module->seeLoggerHasCritical('Test message 1');
-        $this->module->seeLoggerHasCritical('Test message 2');
+        $module->haveCritical('Test message 2');
 
-        $this->module->seeLoggerHasCriticalThatContains('message');
-        $this->module->dontSeeLoggerHasCriticalThatContains('wrong');
+        $module->seeLoggerHasCritical('Test message 1');
+        $module->seeLoggerHasCritical('Test message 2');
 
-        $this->module->seeLoggerHasCriticalThatMatchesRegex('/message/');
-        $this->module->dontSeeLoggerHasCriticalThatMatchesRegex('/wrong/');
+        $module->seeLoggerHasCriticalThatContains('message');
+        $module->dontSeeLoggerHasCriticalThatContains('wrong');
 
-        $this->module->seeLoggerHasCriticalThatPasses(function ($record) {
+        $module->seeLoggerHasCriticalThatMatchesRegex('/message/');
+        $module->dontSeeLoggerHasCriticalThatMatchesRegex('/wrong/');
+
+        $module->seeLoggerHasCriticalThatPasses(static function ($record) {
             return isset($record['context']['test']);
         });
-        $this->module->dontSeeLoggerHasCriticalThatPasses(function ($record) {
+        $module->dontSeeLoggerHasCriticalThatPasses(static function ($record) {
             return isset($record['context']['wrong']);
         });
     }
 
     public function testError()
     {
-        $this->module->dontSeeLoggerHasAnyError();
+        $module = $this->createModule();
 
-        $this->module->haveError('Test message 1', ['test' => 'Test context']);
+        $module->dontSeeLoggerHasAnyError();
 
-        $this->module->seeLoggerHasAnyError();
+        $module->haveError('Test message 1', ['test' => 'Test context']);
 
-        $this->module->seeLoggerHasError('Test message 1');
-        $this->module->seeLoggerHasError('Test message 1', ['test' => 'Test context']);
+        $module->seeLoggerHasAnyError();
 
-        $this->module->dontSeeLoggerHasError('Wrong message');
-        $this->module->dontSeeLoggerHasError('Test message 1', ['test' => 'wrong context']);
+        $module->seeLoggerHasError('Test message 1');
+        $module->seeLoggerHasError('Test message 1', ['test' => 'Test context']);
 
-        $this->module->haveError('Test message 2');
+        $module->dontSeeLoggerHasError('Wrong message');
+        $module->dontSeeLoggerHasError('Test message 1', ['test' => 'wrong context']);
 
-        $this->module->seeLoggerHasError('Test message 1');
-        $this->module->seeLoggerHasError('Test message 2');
+        $module->haveError('Test message 2');
 
-        $this->module->seeLoggerHasErrorThatContains('message');
-        $this->module->dontSeeLoggerHasErrorThatContains('wrong');
+        $module->seeLoggerHasError('Test message 1');
+        $module->seeLoggerHasError('Test message 2');
 
-        $this->module->seeLoggerHasErrorThatMatchesRegex('/message/');
-        $this->module->dontSeeLoggerHasErrorThatMatchesRegex('/wrong/');
+        $module->seeLoggerHasErrorThatContains('message');
+        $module->dontSeeLoggerHasErrorThatContains('wrong');
 
-        $this->module->seeLoggerHasErrorThatPasses(function ($record) {
+        $module->seeLoggerHasErrorThatMatchesRegex('/message/');
+        $module->dontSeeLoggerHasErrorThatMatchesRegex('/wrong/');
+
+        $module->seeLoggerHasErrorThatPasses(static function ($record) {
             return isset($record['context']['test']);
         });
-        $this->module->dontSeeLoggerHasErrorThatPasses(function ($record) {
+        $module->dontSeeLoggerHasErrorThatPasses(static function ($record) {
             return isset($record['context']['wrong']);
         });
     }
 
     public function testWarning()
     {
-        $this->module->dontSeeLoggerHasAnyWarning();
+        $module = $this->createModule();
 
-        $this->module->haveWarning('Test message 1', ['test' => 'Test context']);
+        $module->dontSeeLoggerHasAnyWarning();
 
-        $this->module->seeLoggerHasAnyWarning();
+        $module->haveWarning('Test message 1', ['test' => 'Test context']);
 
-        $this->module->seeLoggerHasWarning('Test message 1');
-        $this->module->seeLoggerHasWarning('Test message 1', ['test' => 'Test context']);
+        $module->seeLoggerHasAnyWarning();
 
-        $this->module->dontSeeLoggerHasWarning('Wrong message');
-        $this->module->dontSeeLoggerHasWarning('Test message 1', ['test' => 'wrong context']);
+        $module->seeLoggerHasWarning('Test message 1');
+        $module->seeLoggerHasWarning('Test message 1', ['test' => 'Test context']);
 
-        $this->module->haveWarning('Test message 2');
+        $module->dontSeeLoggerHasWarning('Wrong message');
+        $module->dontSeeLoggerHasWarning('Test message 1', ['test' => 'wrong context']);
 
-        $this->module->seeLoggerHasWarning('Test message 1');
-        $this->module->seeLoggerHasWarning('Test message 2');
+        $module->haveWarning('Test message 2');
 
-        $this->module->seeLoggerHasWarningThatContains('message');
-        $this->module->dontSeeLoggerHasWarningThatContains('wrong');
+        $module->seeLoggerHasWarning('Test message 1');
+        $module->seeLoggerHasWarning('Test message 2');
 
-        $this->module->seeLoggerHasWarningThatMatchesRegex('/message/');
-        $this->module->dontSeeLoggerHasWarningThatMatchesRegex('/wrong/');
+        $module->seeLoggerHasWarningThatContains('message');
+        $module->dontSeeLoggerHasWarningThatContains('wrong');
 
-        $this->module->seeLoggerHasWarningThatPasses(function ($record) {
+        $module->seeLoggerHasWarningThatMatchesRegex('/message/');
+        $module->dontSeeLoggerHasWarningThatMatchesRegex('/wrong/');
+
+        $module->seeLoggerHasWarningThatPasses(static function ($record) {
             return isset($record['context']['test']);
         });
-        $this->module->dontSeeLoggerHasWarningThatPasses(function ($record) {
+        $module->dontSeeLoggerHasWarningThatPasses(static function ($record) {
             return isset($record['context']['wrong']);
         });
     }
 
     public function testNotice()
     {
-        $this->module->dontSeeLoggerHasAnyNotice();
+        $module = $this->createModule();
 
-        $this->module->haveNotice('Test message 1', ['test' => 'Test context']);
+        $module->dontSeeLoggerHasAnyNotice();
 
-        $this->module->seeLoggerHasAnyNotice();
+        $module->haveNotice('Test message 1', ['test' => 'Test context']);
 
-        $this->module->seeLoggerHasNotice('Test message 1');
-        $this->module->seeLoggerHasNotice('Test message 1', ['test' => 'Test context']);
+        $module->seeLoggerHasAnyNotice();
 
-        $this->module->dontSeeLoggerHasNotice('Wrong message');
-        $this->module->dontSeeLoggerHasNotice('Test message 1', ['test' => 'wrong context']);
+        $module->seeLoggerHasNotice('Test message 1');
+        $module->seeLoggerHasNotice('Test message 1', ['test' => 'Test context']);
 
-        $this->module->haveNotice('Test message 2');
+        $module->dontSeeLoggerHasNotice('Wrong message');
+        $module->dontSeeLoggerHasNotice('Test message 1', ['test' => 'wrong context']);
 
-        $this->module->seeLoggerHasNotice('Test message 1');
-        $this->module->seeLoggerHasNotice('Test message 2');
+        $module->haveNotice('Test message 2');
 
-        $this->module->seeLoggerHasNoticeThatContains('message');
-        $this->module->dontSeeLoggerHasNoticeThatContains('wrong');
+        $module->seeLoggerHasNotice('Test message 1');
+        $module->seeLoggerHasNotice('Test message 2');
 
-        $this->module->seeLoggerHasNoticeThatMatchesRegex('/message/');
-        $this->module->dontSeeLoggerHasNoticeThatMatchesRegex('/wrong/');
+        $module->seeLoggerHasNoticeThatContains('message');
+        $module->dontSeeLoggerHasNoticeThatContains('wrong');
 
-        $this->module->seeLoggerHasNoticeThatPasses(function ($record) {
+        $module->seeLoggerHasNoticeThatMatchesRegex('/message/');
+        $module->dontSeeLoggerHasNoticeThatMatchesRegex('/wrong/');
+
+        $module->seeLoggerHasNoticeThatPasses(static function ($record) {
             return isset($record['context']['test']);
         });
-        $this->module->dontSeeLoggerHasNoticeThatPasses(function ($record) {
+        $module->dontSeeLoggerHasNoticeThatPasses(static function ($record) {
             return isset($record['context']['wrong']);
         });
     }
 
     public function testInfo()
     {
-        $this->module->dontSeeLoggerHasAnyInfo();
+        $module = $this->createModule();
 
-        $this->module->haveInfo('Test message 1', ['test' => 'Test context']);
+        $module->dontSeeLoggerHasAnyInfo();
 
-        $this->module->seeLoggerHasAnyInfo();
+        $module->haveInfo('Test message 1', ['test' => 'Test context']);
 
-        $this->module->seeLoggerHasInfo('Test message 1');
-        $this->module->seeLoggerHasInfo('Test message 1', ['test' => 'Test context']);
+        $module->seeLoggerHasAnyInfo();
 
-        $this->module->dontSeeLoggerHasInfo('Wrong message');
-        $this->module->dontSeeLoggerHasInfo('Test message 1', ['test' => 'wrong context']);
+        $module->seeLoggerHasInfo('Test message 1');
+        $module->seeLoggerHasInfo('Test message 1', ['test' => 'Test context']);
 
-        $this->module->haveInfo('Test message 2');
+        $module->dontSeeLoggerHasInfo('Wrong message');
+        $module->dontSeeLoggerHasInfo('Test message 1', ['test' => 'wrong context']);
 
-        $this->module->seeLoggerHasInfo('Test message 1');
-        $this->module->seeLoggerHasInfo('Test message 2');
+        $module->haveInfo('Test message 2');
 
-        $this->module->seeLoggerHasInfoThatContains('message');
-        $this->module->dontSeeLoggerHasInfoThatContains('wrong');
+        $module->seeLoggerHasInfo('Test message 1');
+        $module->seeLoggerHasInfo('Test message 2');
 
-        $this->module->seeLoggerHasInfoThatMatchesRegex('/message/');
-        $this->module->dontSeeLoggerHasInfoThatMatchesRegex('/wrong/');
+        $module->seeLoggerHasInfoThatContains('message');
+        $module->dontSeeLoggerHasInfoThatContains('wrong');
 
-        $this->module->seeLoggerHasInfoThatPasses(function ($record) {
+        $module->seeLoggerHasInfoThatMatchesRegex('/message/');
+        $module->dontSeeLoggerHasInfoThatMatchesRegex('/wrong/');
+
+        $module->seeLoggerHasInfoThatPasses(static function ($record) {
             return isset($record['context']['test']);
         });
-        $this->module->dontSeeLoggerHasInfoThatPasses(function ($record) {
+        $module->dontSeeLoggerHasInfoThatPasses(static function ($record) {
             return isset($record['context']['wrong']);
         });
     }
 
     public function testDebug()
     {
-        $this->module->dontSeeLoggerHasAnyDebug();
+        $module = $this->createModule();
 
-        $this->module->haveDebug('Test message 1', ['test' => 'Test context']);
+        $module->dontSeeLoggerHasAnyDebug();
 
-        $this->module->seeLoggerHasAnyDebug();
+        $module->haveDebug('Test message 1', ['test' => 'Test context']);
 
-        $this->module->seeLoggerHasDebug('Test message 1');
-        $this->module->seeLoggerHasDebug('Test message 1', ['test' => 'Test context']);
+        $module->seeLoggerHasAnyDebug();
 
-        $this->module->dontSeeLoggerHasDebug('Wrong message');
-        $this->module->dontSeeLoggerHasDebug('Test message 1', ['test' => 'wrong context']);
+        $module->seeLoggerHasDebug('Test message 1');
+        $module->seeLoggerHasDebug('Test message 1', ['test' => 'Test context']);
 
-        $this->module->haveDebug('Test message 2');
+        $module->dontSeeLoggerHasDebug('Wrong message');
+        $module->dontSeeLoggerHasDebug('Test message 1', ['test' => 'wrong context']);
 
-        $this->module->seeLoggerHasDebug('Test message 1');
-        $this->module->seeLoggerHasDebug('Test message 2');
+        $module->haveDebug('Test message 2');
 
-        $this->module->seeLoggerHasDebugThatContains('message');
-        $this->module->dontSeeLoggerHasDebugThatContains('wrong');
+        $module->seeLoggerHasDebug('Test message 1');
+        $module->seeLoggerHasDebug('Test message 2');
 
-        $this->module->seeLoggerHasDebugThatMatchesRegex('/message/');
-        $this->module->dontSeeLoggerHasDebugThatMatchesRegex('/wrong/');
+        $module->seeLoggerHasDebugThatContains('message');
+        $module->dontSeeLoggerHasDebugThatContains('wrong');
 
-        $this->module->seeLoggerHasDebugThatPasses(function ($record) {
+        $module->seeLoggerHasDebugThatMatchesRegex('/message/');
+        $module->dontSeeLoggerHasDebugThatMatchesRegex('/wrong/');
+
+        $module->seeLoggerHasDebugThatPasses(static function ($record) {
             return isset($record['context']['test']);
         });
-        $this->module->dontSeeLoggerHasDebugThatPasses(function ($record) {
+        $module->dontSeeLoggerHasDebugThatPasses(static function ($record) {
             return isset($record['context']['wrong']);
         });
     }

@@ -4,15 +4,15 @@ namespace Tests\Byteout\Codeception\Module;
 
 use Byteout\Codeception\Module\PsrLogger;
 use Codeception\Lib\ModuleContainer;
+use Codeception\PHPUnit\TestCase;
 use Codeception\TestInterface;
-use PHPUnit\Framework\TestCase;
 
 class PsrLoggerTest extends TestCase
 {
     /** @var PsrLogger */
     private $module;
 
-    protected function setUp()
+    protected function _setUp()
     {
         $container = $this->createMock(ModuleContainer::class);
         $this->module = new PsrLogger($container);

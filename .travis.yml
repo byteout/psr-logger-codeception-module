@@ -1,27 +1,32 @@
 language: php
 
-php:
-    - '5.6'
-    - '7.1'
-    - '7.2'
-    - '7.3'
-
 cache:
     directories:
-        - vendor
         - $HOME/.composer/cache
 
 branches:
     only:
         - master
 
-env:
-    matrix:
-        - PREFER_LOWEST="--prefer-lowest"
-        - PREFER_LOWEST=""
+matrix:
+    include:
+        - php: 5.6
+          env: COMPOSER_FLAGS="--prefer-lowest"
+        - php: 7.2
+          env: CODECEPT_VERSION="^3.0"
+        - php: 7.2
+          env: CODECEPT_VERSION="^4.0"
+        - php: 7.3
+          env: CODECEPT_VERSION="^3.0"
+        - php: 7.3
+          env: CODECEPT_VERSION="^4.0"
+        - php: 7.4
+
+before_install:
+    - if [ "$CODECEPT_VERSION" != "" ]; then composer require --dev --no-update codeception/codeception:"$CODECEPT_VERSION"; fi
 
 install:
-    - composer update $PREFER_LOWEST
+    - composer update $COMPOSER_FLAGS
 
 script:
     - composer test

@@ -2,9 +2,9 @@
 
 namespace Byteout\Codeception\Module;
 
+use Byteout\Psr\Log\TestLogger;
 use Codeception\Module;
 use Codeception\TestInterface;
-use Psr\Log\Test\TestLogger;
 
 class PsrLogger extends Module
 {

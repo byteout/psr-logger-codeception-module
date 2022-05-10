@@ -21,6 +21,9 @@ matrix:
         - php: 7.3
           env: CODECEPT_VERSION="^4.0"
         - php: 7.4
+          env: CODECEPT_VERSION="^4.0"
+        - php: 8.0
+        - php: 8.1
 
 before_install:
     - if [ "$CODECEPT_VERSION" != "" ]; then composer require --dev --no-update codeception/codeception:"$CODECEPT_VERSION"; fi

@@ -30,7 +30,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Byteout\\Codeception\\Module\\": "tests/"
+            "Tests\\Byteout\\": "tests/"
         }
     },
     "scripts": {

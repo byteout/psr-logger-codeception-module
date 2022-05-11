@@ -1,0 +1,44 @@
+name: Run Tests
+
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
+
+jobs:
+    run-test:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php-version:
+                    - 5.6
+                    - 7.2
+                    - 7.3
+                    - 7.4
+                    - 8.0
+                    - 8.1
+                codeception-version:
+                    - '^2.0'
+                    - '^3.0'
+                    - '^4.0'
+        steps:
+            -   uses: actions/checkout@v3
+
+            -   name: Setup PHP ${{ matrix.php-version }}
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php-version }}
+
+            -   name: Setup Codeception ${{ matrix.codeception-version }}
+                env:
+                    CODECEPT_VERSION: ${{ matrix.codeception-version }}
+                run: composer require --dev --no-update codeception/codeception:"$CODECEPT_VERSION"
+
+            -   name: Install Dependencies
+                run: composer update
+
+            -   name: Run Tests
+                run: composer test

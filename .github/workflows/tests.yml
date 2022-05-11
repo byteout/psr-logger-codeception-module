@@ -24,6 +24,15 @@ jobs:
                     - '^2.0'
                     - '^3.0'
                     - '^4.0'
+                exclude:
+                    -   php-version: 8.0
+                        codeception-version: '^2.0'
+                    -   php-version: 8.0
+                        codeception-version: '^3.0'
+                    -   php-version: 8.1
+                        codeception-version: '^2.0'
+                    -   php-version: 8.1
+                        codeception-version: '^3.0'
         steps:
             -   uses: actions/checkout@v3
 

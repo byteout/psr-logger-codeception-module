@@ -8,6 +8,13 @@
 
 Developed by [Byteout Software](https://www.byteout.com/).
 
+## Compatibility
+
+| PHP            | codeception                | psr/log          | Module Version                               |
+|----------------|----------------------------|------------------|----------------------------------------------|
+| `>=5.6.0 <9.0` | `^2.2&#124;^3.0&#124;^4.0` | `^1.0`           | `byteout/psr-logger-codeception-module:^1.0` |
+| `^8.0`         | `^4.1.9`                   | `^2.0&#124;^3.0` | `byteout/psr-logger-codeception-module:^2.0` |
+
 ## Installation
 
 1. Install and configure [Codeception](https://codeception.com/install)

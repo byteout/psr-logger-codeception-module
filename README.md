@@ -263,14 +263,14 @@ $I->dontSeeLoggerHasEmergencyThatMatchesRegex('emergency');
 ### Check if message was logged using callback
 
 ```php
-public function seeLoggerHasEmergencyThatPasses(callable $matcher)
-public function seeLoggerHasAlertThatPasses(callable $matcher)
-public function seeLoggerHasCriticalThatPasses(callable $matcher)
-public function seeLoggerHasErrorThatPasses(callable $matcher)
-public function seeLoggerHasWarningThatPasses(callable $matcher)
-public function seeLoggerHasNoticeThatPasses(callable $matcher)
-public function seeLoggerHasInfoThatPasses(callable $matcher)
-public function seeLoggerHasDebugThatPasses(callable $matcher)
+public function seeLoggerHasEmergencyThatPasses(callable $matcher);
+public function seeLoggerHasAlertThatPasses(callable $matcher);
+public function seeLoggerHasCriticalThatPasses(callable $matcher);
+public function seeLoggerHasErrorThatPasses(callable $matcher);
+public function seeLoggerHasWarningThatPasses(callable $matcher);
+public function seeLoggerHasNoticeThatPasses(callable $matcher);
+public function seeLoggerHasInfoThatPasses(callable $matcher);
+public function seeLoggerHasDebugThatPasses(callable $matcher);
 ```
 
 **Example:**
@@ -283,14 +283,14 @@ $I->seeLoggerHasEmergencyThatPasses(function ($record) {
 ### Check if message was not logged using callback
 
 ```php
-public function dontSeeLoggerHasEmergencyThatPasses(callable $matcher)
-public function dontSeeLoggerHasAlertThatPasses(callable $matcher)
-public function dontSeeLoggerHasCriticalThatPasses(callable $matcher)
-public function dontSeeLoggerHasErrorThatPasses(callable $matcher)
-public function dontSeeLoggerHasWarningThatPasses(callable $matcher)
-public function dontSeeLoggerHasNoticeThatPasses(callable $matcher)
-public function dontSeeLoggerHasInfoThatPasses(callable $matcher)
-public function dontSeeLoggerHasDebugThatPasses(callable $matcher)
+public function dontSeeLoggerHasEmergencyThatPasses(callable $matcher);
+public function dontSeeLoggerHasAlertThatPasses(callable $matcher);
+public function dontSeeLoggerHasCriticalThatPasses(callable $matcher);
+public function dontSeeLoggerHasErrorThatPasses(callable $matcher);
+public function dontSeeLoggerHasWarningThatPasses(callable $matcher);
+public function dontSeeLoggerHasNoticeThatPasses(callable $matcher);
+public function dontSeeLoggerHasInfoThatPasses(callable $matcher);
+public function dontSeeLoggerHasDebugThatPasses(callable $matcher);
 ```
 
 **Example:**

@@ -102,7 +102,7 @@ class TestLogger extends AbstractLogger
     public function hasRecordThatContains($message, $level)
     {
         return $this->hasRecordThatPasses(function ($rec) use ($message) {
-            return strpos($rec['message'], $message) !== false;
+            return str_contains($rec['message'], $message);
         }, $level);
     }
 

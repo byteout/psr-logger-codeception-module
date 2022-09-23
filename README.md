@@ -127,7 +127,7 @@ public function seeLoggerHasDebug(string $message, array $context = null);
 
 **Example**
 ```php
-// matches all 'This is emergancy' emergancy messages, despite the context
+// matches all 'This is emergency' emergency messages, despite the context
 $I->seeLoggerHasEmergency('This is emergency');
 
 // matches only message with the given context
@@ -151,7 +151,7 @@ public function dontSeeLoggerHasDebug(string $message, array $context = null);
 
 **Example**
 ```php
-// fails if any 'This is emergancy' emergancy message was logged, despite the context
+// fails if any 'This is emergency' emergency message was logged, despite the context
 $I->dontSeeLoggerHasEmergency('This is emergency');
 
 // fails only when a message with the given content and context was logged

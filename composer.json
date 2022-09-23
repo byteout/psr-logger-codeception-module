@@ -17,7 +17,7 @@
     "minimum-stability": "stable",
     "require": {
         "php": "^8.0",
-        "codeception/codeception": "^4.1.9",
+        "codeception/codeception": "^4.1.9|^5.0",
         "psr/log": "^2.0|^3.0"
     },
     "require-dev": {

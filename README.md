@@ -13,7 +13,7 @@ Developed by [Byteout Software](https://www.byteout.com/).
 | PHP                           | codeception                           | psr/log                     | Module Version                                          |
 |-------------------------------|---------------------------------------|-----------------------------|---------------------------------------------------------|
 | <code>=5.6.0&nbsp;<9.0</code> | <code>^2.2&#124;^3.0&#124;^4.0</code> | <code>^1.0</code>           | <code>byteout/psr-logger-codeception-module:^1.0</code> |
-| <code>^8.0</code>             | <code>^4.1.9</code>                   | <code>^2.0&#124;^3.0</code> | <code>byteout/psr-logger-codeception-module:^2.0</code> |
+| <code>^8.0</code>             | <code>^4.1.9&#124;^5.0</code>         | <code>^2.0&#124;^3.0</code> | <code>byteout/psr-logger-codeception-module:^2.0</code> |
 
 ## Installation
 

@@ -34,6 +34,6 @@
         }
     },
     "scripts": {
-        "test": "@php vendor/phpunit/phpunit/phpunit tests"
+        "test": "phpunit tests"
     }
 }

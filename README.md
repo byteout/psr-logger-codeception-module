@@ -19,12 +19,12 @@ Developed by [Byteout Software](https://www.byteout.com/).
 
 1. Install and configure [Codeception](https://codeception.com/install)
 
-1. Install module using composer
+2. Install module using composer
     ```bash
     composer require "byteout/psr-logger-codeception-module" --dev
     ```
 
-1. Enable the module in your suite `{NAME}.suite.yml`:
+3. Enable the module in your suite `{NAME}.suite.yml`:
     ```yaml
     modules:
         enabled:
@@ -43,7 +43,7 @@ Developed by [Byteout Software](https://www.byteout.com/).
     $I->seeLoggerHasNotice('This is logger example.');
     ```
 
-1. Track logs from other services
+2. Track logs from other services
     ```php
     <?php
     
@@ -72,7 +72,7 @@ Developed by [Byteout Software](https://www.byteout.com/).
     $I->seeLoggerHasInfo('Hello John');
     ```
 
-1. Simulate logs
+3. Simulate logs
     ```php
     <?php
     

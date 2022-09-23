@@ -17,7 +17,8 @@ jobs:
                     - 8.0
                     - 8.1
                 codeception-version:
-                    - '^4.0'
+                    - ^4.0
+                    - ^5.0
         steps:
             -   uses: actions/checkout@v3
 
@@ -27,9 +28,7 @@ jobs:
                     php-version: ${{ matrix.php-version }}
 
             -   name: Setup Codeception ${{ matrix.codeception-version }}
-                env:
-                    CODECEPT_VERSION: ${{ matrix.codeception-version }}
-                run: composer require --dev --no-update codeception/codeception:"$CODECEPT_VERSION"
+                run: composer require --dev --no-update codeception/codeception:${{ matrix.codeception-version }}
 
             -   name: Install Dependencies
                 run: composer update
